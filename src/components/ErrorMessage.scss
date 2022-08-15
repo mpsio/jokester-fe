@@ -1,0 +1,9 @@
+@import '../styles/_variables';
+@import '../styles/_mixins';
+.error-message{
+    @include center-block(.5rem);
+    @include message();
+    width: 100%;
+    text-align: center;
+
+}

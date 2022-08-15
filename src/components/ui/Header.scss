@@ -1,0 +1,72 @@
+@import '../../styles/_variables';
+@import '../../styles/_mixins';
+.header 
+{
+    @include flex(row, center, space-between);
+    background-color: $gray;
+    padding: .7rem;
+    position: relative;
+    &__nav{
+        @include flex();
+        ul {
+            margin-bottom: 0 !important;
+        }
+        &__logo a{
+            font-size: 2rem;
+            text-decoration: none;
+            color: black;
+        }
+        li {
+      
+            padding-left: 1.8rem;
+            display: inline-block;
+            flex-basis: stretch;
+            height: inherit;
+        }
+        li > a 
+        {
+            @include font(1.6rem);
+            text-decoration: none;
+            color: inherit;
+        }
+        @media only screen and (max-width: $desktop){
+            @include flex(column, center, flex-start);
+            li {
+                display: block;
+                padding: .5rem;
+                text-align: center;
+            }
+        }
+    }
+    &__actions{
+        @include flex(row, center, flex-start);
+        button {
+            margin: .5rem
+        }
+        &__icon{
+            display: none;
+        }
+        &__icon span svg
+        {
+            font-size: 1.8rem;
+            color: $green;
+            cursor: pointer;
+        }
+        @media only screen and (max-width: $desktop){
+            @include flex(column, center, flex-start);
+            button {
+                min-width:18rem;
+            }
+            &__icon{
+                display: unset;
+                position: absolute;
+                right: .7rem;
+                top: 1rem;
+            }
+        }
+    }
+
+    @media only screen and (max-width: $desktop){
+        @include flex(column, center, space-between);
+   }
+}

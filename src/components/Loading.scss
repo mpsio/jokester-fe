@@ -1,0 +1,10 @@
+@import '../styles/_variables';
+@import '../styles/_mixins';
+.loading
+{
+    @include flex(column, center, flex-start);
+    .loading__text{
+        padding: 1.5rem;
+        @include font(1.8rem)
+    }
+}

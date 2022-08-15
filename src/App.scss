@@ -1,0 +1,41 @@
+@import './styles/_variables';
+@import './styles/_mixins';
+@import 'antd/dist/antd.css';
+*, 
+*::after,
+*::before
+{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: inherit;
+}
+html {
+      // 1 REM = 10px;
+  font-size: 62.5%;
+  @media only screen and (max-width: $tablet){
+    font-size: 50%;
+  }
+}
+
+* {
+  @include font(1.4rem);
+  font-family: $font-main, $font-defaults;
+}
+
+// Ant Design overwrites; 
+.ant-btn {
+  border-radius: .5rem;
+}
+.ant-btn-primary {
+  border-color: $green !important;
+  background: $green !important;
+}
+.ant-btn:hover, .ant-btn:focus {
+  color:$green;
+  border-color:$green;
+  background: #fff;
+}
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+  color:white;
+  border-color:$green;
+}

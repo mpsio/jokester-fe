@@ -1,0 +1,16 @@
+@import '../styles/_variables';
+@import '../styles/_mixins';
+.joke{
+    @include center-block();
+    text-align: center;
+    span {
+        display: block;
+        margin: 1.5rem auto;
+    }
+    &__setup{
+        @include font(2rem)
+    }
+    &__punchline{
+        @include font(3rem)
+    }
+}

@@ -1,0 +1,9 @@
+@import '../../styles/_variables';
+@import '../../styles/_mixins';
+.layout-main{
+    padding: 7.5rem 1.5rem;
+    &__container
+    {
+        @include flex(row, column, center);
+    }
+}

@@ -1,0 +1,8 @@
+@import '../styles/_variables';
+@import '../styles/_mixins';
+.not-found{
+    @include flex(row, center, center);
+    @include message();
+    flex-wrap: wrap;
+    text-align: center;
+}
