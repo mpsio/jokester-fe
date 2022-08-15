@@ -1,14 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './Header.scss';
 import {Link, useLocation} from 'react-router-dom';
 
 import { Button } from 'antd';
 import {MenuOutlined} from '@ant-design/icons'
+import JokeContext from '../../store/joke-context';
 
 const Header = (props) => {
     const [toggleMenu, setToggleMenu] = useState(true);
     const [homePage, setHomePage] = useState(false);
     const location = useLocation();
+    const jokeCtx = useContext(JokeContext);
+
     const toggleMenuHandler = () => 
     {
         setToggleMenu((prevState)=>!prevState);
@@ -38,8 +41,8 @@ const Header = (props) => {
             </div>
             <div className="header__actions">
                 {toggleMenu && homePage && (<React.Fragment>
-                    <Button onClick={props.onGetJoke} type="primary">Get Random Joke</Button>
-                    <Button onClick={props.onShowPunchline}>{props.showPunchline ? "Hide" : "Show"} Punchline</Button>
+                    <Button onClick={jokeCtx.onGetJoke} type="primary">Get Random Joke</Button>
+                    <Button onClick={jokeCtx.onShowPunchline}>{jokeCtx.showPunchline ? "Hide" : "Show"} Punchline</Button>
                 </React.Fragment>)}
                 <div className="header__actions__icon">
                     <MenuOutlined onClick={toggleMenuHandler}/>

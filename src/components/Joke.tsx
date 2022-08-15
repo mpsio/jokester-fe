@@ -1,6 +1,15 @@
 import React from 'react';
 import './Joke.scss';
-const Joke = (props) => {
+type Joke = {
+    id : number, 
+    setup: string, 
+    punchline : string
+}
+interface JokeProps {
+    joke : Joke,
+    showPunchline : boolean,
+}
+const Joke : React.FC<JokeProps> = (props ) => {
     return (
         <div className="joke">
             <span className="joke__setup">{props.joke?.setup}</span>

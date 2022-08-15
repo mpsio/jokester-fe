@@ -1,17 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './Home.scss';
 import LayoutMain from '../components/layout/LayoutMain';
 import Joke from '../components/Joke';
+import JokeContext from '../store/joke-context';
 const Home = (props) => {
+    const jokeCtx = useContext(JokeContext);
     return (
         <div className="home">
-            <LayoutMain
-            onGetJoke={props.onGetJoke}
-            onShowPunchline={props.onShowPunchline}
-            joke={props.joke}
-            showPunchline={props.showPunchline}>
-                <Joke joke={props.joke}  
-                showPunchline={props.showPunchline}/>
+            <LayoutMain>
+                <Joke showPunchline={jokeCtx.showPunchline} joke={jokeCtx.joke}/>  
             </LayoutMain>
         </div>
     )

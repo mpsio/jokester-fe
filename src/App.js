@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer} from 'react';
+import React, { useContext } from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
 // custom components: 
 import LayoutMain from './components/layout/LayoutMain';
@@ -9,6 +9,7 @@ import LayoutFullscreen from './components/layout/LayoutFullscreen';
 import Home from './pages/Home';
 // css
 import './App.scss';
+import JokeContext from './store/joke-context';
 
 function App() {
   
@@ -18,108 +19,103 @@ function App() {
   // const [joke, setJoke] = useState<any>(null);
   // const [showPunchline, setShowPunchline] = useState(false);
   // const [error, setError] = useState(null);
-
+  const jokeCtx = useContext(JokeContext);
 
   // Revised State Management: 
-  const initialState = {
-    appLoading: true,
-    joke : null,
-    showPunchline : false,
-    error: null
-  }
-  const jokeReducer = (state, action ) => {
-    if(action.type === "APP_LOADING")
-    {
-      return {
-        ...state,
-        appLoading : action.payload.value
-      }
-    }
-    if(action.type === "SET_JOKE")
-    {
-      return {
-        ...state,
-        joke : action.payload.value
-      }
-    }
-    if(action.type === "TOGGLE_PUNCHLINE")
-    {
-      return {
-        ...state,
-        showPunchline : action.payload.value
-      }
-    }
-    if(action.type=== "ERROR")
-    {
-      return {
-        ...state,
-        error : action.payload.value
-      }
-    }
-    return state;
-  }
-  const [jokeState, jokeDispatch] = useReducer(jokeReducer, initialState);
-  const reset = () => 
-  {
-    // setAppLoading(true);
-    // setShowPunchline(!setShowPunchline);
-    jokeDispatch({type : "APP_LOADING", payload: {value: true}});
-    jokeDispatch({type : "TOGGLE_PUNCHLINE", payload: {value: false}});
-  }
+  // const initialState = {
+  //   appLoading: true,
+  //   joke : null,
+  //   showPunchline : false,
+  //   error: null
+  // }
+  // const jokeReducer = (state, action ) => {
+  //   if(action.type === "APP_LOADING")
+  //   {
+  //     return {
+  //       ...state,
+  //       appLoading : action.payload.value
+  //     }
+  //   }
+  //   if(action.type === "SET_JOKE")
+  //   {
+  //     return {
+  //       ...state,
+  //       joke : action.payload.value
+  //     }
+  //   }
+  //   if(action.type === "TOGGLE_PUNCHLINE")
+  //   {
+  //     return {
+  //       ...state,
+  //       showPunchline : action.payload.value
+  //     }
+  //   }
+  //   if(action.type=== "ERROR")
+  //   {
+  //     return {
+  //       ...state,
+  //       error : action.payload.value
+  //     }
+  //   }
+  //   return state;
+  // }
+  // const [jokeState, jokeDispatch] = useReducer(jokeReducer, initialState);
+  // const reset = () => 
+  // {
+  //   // setAppLoading(true);
+  //   // setShowPunchline(!setShowPunchline);
+  //   jokeDispatch({type : "APP_LOADING", payload: {value: true}});
+  //   jokeDispatch({type : "TOGGLE_PUNCHLINE", payload: {value: false}});
+  // }
 
-  // Functionality
-  const onGetJokeHandler = () => {
-    reset();
-    fetch("https://karljoke.herokuapp.com/jokes/random")
-    .then(res=>{
+  // // Functionality
+  // const onGetJokeHandler = () => {
+  //   reset();
+  //   fetch("https://karljoke.herokuapp.com/jokes/random")
+  //   .then(res=>{
   
-      if(res.ok === false )
-      {
-        throw new Error("Well this isn't funny... No jokes available right now.");
-      }
-      return res.json();
-    })
-    .then(data=>{
-      //setJoke(data);
-      jokeDispatch({type : "SET_JOKE", payload: {value: data}});
-    })
-    .catch(err=>{
-      // setError(err.message)
-      jokeDispatch({type : "ERROR", payload: {value: err.message}});
-    })
-    jokeDispatch({type : "APP_LOADING", payload: {value: false}});
-  }
+  //     if(res.ok === false )
+  //     {
+  //       throw new Error("Well this isn't funny... No jokes available right now.");
+  //     }
+  //     return res.json();
+  //   })
+  //   .then(data=>{
+  //     //setJoke(data);
+  //     jokeDispatch({type : "SET_JOKE", payload: {value: data}});
+  //   })
+  //   .catch(err=>{
+  //     // setError(err.message)
+  //     jokeDispatch({type : "ERROR", payload: {value: err.message}});
+  //   })
+  //   jokeDispatch({type : "APP_LOADING", payload: {value: false}});
+  // }
 
-  const onShowPunchlineHandler = () =>{
-    // setShowPunchline((prevState)=>{return !prevState})
-    jokeDispatch({type : "TOGGLE_PUNCHLINE", payload: {value: !jokeState.showPunchline}});
-  }
-  // Initial Load, no dependencies. 
-  useEffect(() => {
-    setTimeout(()=>{
-      onGetJokeHandler();
-    }, 1000)
-  }, [])
+  // const onShowPunchlineHandler = () =>{
+  //   // setShowPunchline((prevState)=>{return !prevState})
+  //   jokeDispatch({type : "TOGGLE_PUNCHLINE", payload: {value: !jokeState.showPunchline}});
+  // }
+  // // Initial Load, no dependencies. 
+  // useEffect(() => {
+  //   setTimeout(()=>{
+  //     onGetJokeHandler();
+  //   }, 1000)
+  // }, [])
   return (
     <div className="App">
       <Switch>
         <Route path="/" exact>
-          <Redirect to="/home" />
+          <Redirect to="/home" /> 
         </Route>
         <Route path="/home">
-          { jokeState.appLoading  && (
+          { jokeCtx.appLoading  && (
             <LayoutFullscreen>
               <Loading/>
             </LayoutFullscreen>
           ) }
-          { jokeState.appLoading === false && jokeState.error !== null && <LayoutMain><ErrorMessage error={jokeState.error}/></LayoutMain> }
-          { jokeState.appLoading === false && jokeState.error === null && <React.Fragment>
-              <Home 
-              onGetJoke={onGetJokeHandler} 
-              onShowPunchline={onShowPunchlineHandler}
-              joke={jokeState.joke}
-              showPunchline={jokeState.showPunchline}
-              />
+          { jokeCtx.appLoading === false && jokeCtx.error !== null && <LayoutMain><ErrorMessage error={jokeCtx.error}/></LayoutMain> }
+          { jokeCtx.appLoading === false && jokeCtx.error === null && <React.Fragment>
+              <Home />
           </React.Fragment> }
         </Route>
         <Route path="*">
@@ -128,6 +124,7 @@ function App() {
           </LayoutMain>
         </Route>
       </Switch>
+      x
     </div>
   );
 }
