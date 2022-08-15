@@ -4,6 +4,8 @@
     padding: 7.5rem 1.5rem;
     &__container
     {
-        @include flex(row, column, center);
+        @include flex(column, center, center);
+     
     }
+
 }

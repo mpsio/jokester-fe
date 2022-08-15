@@ -1,0 +1,8 @@
+@import '../styles/_variables';
+@import '../styles/_mixins';
+.home__heading
+{
+    @include center-block();
+    @include font(3.5rem);
+    margin-bottom: 2.5rem;
+}

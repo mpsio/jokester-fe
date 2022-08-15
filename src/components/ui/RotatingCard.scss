@@ -1,0 +1,80 @@
+@import '../../styles/_variables';
+@import '../../styles/_mixins';
+.rotating-card{
+    @include flex();
+    cursor: pointer;
+    perspective: 100rem;
+    -moz-perspective: 100rem;
+    position: relative;
+    min-height: 25rem;
+    width: 50rem;
+    max-width: 100%;
+
+  }
+  .rotating-card__side--gray{
+    background-color: #fafafa;
+    border: 1px solid $green;
+  }
+  .rotating-card__side--green{
+    background-color: $green;
+    span {
+        color: white !important;
+    }
+  }
+  .rotating-card__side
+  {
+    position: absolute;
+    color: black;
+    font-size: 2rem;
+    width: inherit;
+    height: inherit;
+    max-width: inherit;
+    transition: all .8s ease;
+    top: left;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center !important;
+    border-radius: .5rem;
+    padding:1.5rem;
+    min-height: inherit;
+    box-shadow: (rgba(0,0,0,.1) .5rem .5rem 1rem);
+    
+  }
+  .rotating-card span {
+    display: block;
+    margin: 0 auto;
+    @include font(1.8rem);
+  }
+  @keyframes fade {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+  }
+  .rotating-card__side--back {
+    transform: rotateY(-180deg);
+    animation: fade .5s ease forwards;
+    &--flipped{
+        transform: rotateY(0deg);
+   }
+  }
+  .rotating-card__side--front {
+
+    &--flipped{
+        transform: rotateY(180deg);
+        animation: fade .5s ease forwards;
+
+    }
+  }
+//   .rotating-card:hover .rotating-card__side--front {
+//     transform: rotateY(180deg);
+//   }
+//   .rotating-card:hover .rotating-card__side--back {
+//     transform: rotateY(0);
+//   }
+

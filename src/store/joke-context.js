@@ -60,7 +60,8 @@ export const JokeContextProvider = (props) => {
       // Functionality
       const onGetJokeHandler = () => {
         reset();
-        fetch("https://karljoke.herokuapp.com/jokes/random")
+        // fetch("https://karljoke.herokuapp.com/jokes/random")
+        fetch("http://localhost:3005/jokes/random")
         .then(res=>{
       
           if(res.ok === false )

@@ -124,7 +124,6 @@ function App() {
           </LayoutMain>
         </Route>
       </Switch>
-      x
     </div>
   );
 }
